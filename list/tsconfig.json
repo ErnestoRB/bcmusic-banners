@@ -1,12 +1,11 @@
 {
     "compilerOptions": {
+      "typeRoots": ["./typings"],
       "allowJs": true,
       "checkJs": true,
-      "types": ["node"],
       "module": "NodeNext",
       "moduleResolution": "node",
       "outDir": "dist",
-      "target": "Es2017",
-      "resolveJsonModule": true
+      "target": "Es2017"
     },
 }
