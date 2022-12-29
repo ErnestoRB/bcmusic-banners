@@ -14,18 +14,19 @@ if (data[0].name.length >= 20) {
   fontSize = 50;
   dynamicY = 330;
 }
+const [title, ...credits] = data;
 context.font = `${fontSize}pt ${titleFont}`;
 context.textBaseline = "top";
 context.textAlign = "center";
 context.fillStyle = "#ffffff";
-context.fillText(data[0].name.toLowerCase(), 648, dynamicY);
+context.fillText(title.name.toLowerCase(), 648, dynamicY);
 const defaultCreditsFont = (context.font = `60pt ${creditsFont}`);
 
 let y = 1610;
 let names = [];
 
 const lines = 3;
-const namesNumber = Math.ceil(data.length / lines);
+const namesNumber = Math.ceil(credits.length / lines);
 
 for (let i = 0; i < lines; i++) {
   let string = "",
@@ -33,10 +34,10 @@ for (let i = 0; i < lines; i++) {
   for (let j = 0; j < namesNumber; j++) {
     const offset = i * namesNumber;
     const index = offset + j;
-    if (index > data.length - 1) {
+    if (index > credits.length - 1) {
       break;
     }
-    const element = data[index];
+    const element = credits[index];
     string += ` ${element.name} `;
   }
   const measurement = context.measureText(string);
