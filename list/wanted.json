@@ -1,0 +1,11 @@
+{
+  "width": 2880,
+  "height": 2160,
+  "author": "Ernesto Ramírez",
+  "name": "Se busca",
+  "fonts": [
+    { "src": "BebasNeue.ttf", "family": "Bebas" },
+    { "src": "NotoSans.ttf", "family": "Noto" }
+  ],
+  "images": ["wanted.png"]
+}
