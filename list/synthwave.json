@@ -3,6 +3,7 @@
   "height": 1920,
   "author": "Iker Jiménez",
   "name": "Synthwave",
+  "time_range": "long_term",
   "example": "https://i.imgur.com/aD4WkXl.png",
   "fonts": [
     { "src": "SF Movie Poster.ttf", "family": "SF Movie Poster" },
