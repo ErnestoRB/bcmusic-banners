@@ -5,6 +5,12 @@ import { loadArtistSample, loadUserSample } from "./utils";
 
 export interface SpotifyArtist {
   name: string;
+
+  images: {
+    url: string;
+    height: number;
+    width: number;
+  }[];
 }
 
 if (process.argv.length < 5) {

@@ -1,6 +1,7 @@
 import { Canvas, Image, loadImage as li, registerFont as rf } from "canvas";
 import {
   bindDrawImage,
+  bindDrawRoundedImage,
   bindMeasureText,
   bindMultilineSupport,
 } from "../../utils";
@@ -17,6 +18,8 @@ declare global {
   var fillMultilineText: ReturnType<typeof bindMultilineSupport>;
   var measureText: ReturnType<typeof bindMeasureText>;
   var drawImage: ReturnType<typeof bindDrawImage>;
+  var drawRoundedImage: ReturnType<typeof bindDrawRoundedImage>;
+
   var author: string;
   var description: string;
   var canvas: Canvas;

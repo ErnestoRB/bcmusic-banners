@@ -1,11 +1,12 @@
 {
-  "width": 2880,
-  "height": 2160,
+  "width": 1080,
+  "height": 1920,
   "author": "Ernesto Ramírez",
-  "name": "Se busca",
+  "name": "Top 3",
   "fonts": [
     { "src": "BebasNeue.ttf", "family": "Bebas" },
     { "src": "NotoSans.ttf", "family": "Noto" }
   ],
-  "images": ["wanted.png"]
+  "time_range": "long_term",
+  "images": ["top3.png"]
 }

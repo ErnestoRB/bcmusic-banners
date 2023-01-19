@@ -2,7 +2,12 @@ import { createCanvas, loadImage, registerFont } from "canvas";
 import vm from "vm";
 import { readFileSync } from "fs";
 import path from "path";
-import { bindDrawImage, bindMeasureText, bindMultilineSupport } from "./utils";
+import {
+  bindDrawImage,
+  bindDrawRoundedImage,
+  bindMeasureText,
+  bindMultilineSupport,
+} from "./utils";
 import { isPromise } from "util/types";
 import { SpotifyArtist } from ".";
 
@@ -20,7 +25,7 @@ export async function executeBanner(
   const { width, height, author, description, images, fonts } = json;
   const script = readFileSync(path.join("list", name + ".js"), "utf8");
   fonts.forEach(({ src, family }) => {
-    registerFont(path.join("fonts", src), { family });
+    registerFont(path.join(process.cwd(), "fonts", src), { family });
   });
 
   const promises = images.map((element) => {
@@ -44,6 +49,7 @@ export async function executeBanner(
     measureText: bindMeasureText(canvas),
     fillMultilineText: bindMultilineSupport(canvas),
     drawImage: bindDrawImage(canvas),
+    drawRoundedImage: bindDrawRoundedImage(canvas),
     images: imagesArray,
     user: userData,
     data: artistData,
