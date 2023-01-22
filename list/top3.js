@@ -13,32 +13,36 @@
       "Se requiere que el usuario tenga una imágen de perfil!"
     );
   }
+  const gap = 50; // espaciado entre borde de imagen e imagenes de artistas
+  const userImage = 150;
   const titleFont = '"Bebas"';
   // dibujar fondo
   context.drawImage(images[0], 0, 0);
   // dibujar rectangulo
   context.save();
-  context.globalAlpha = 0.5;
-  context.fillStyle = "#fff";
-  context.fillRect(50, 50, width - 100, 400);
+  context.fillStyle = "#000";
+  context.fillRect(0, 0, width, 300);
   context.restore();
   // dibujar imagen de usuario
-  drawRoundedImage(user.image, 100, 200, 100);
+  drawRoundedImage(user.image, gap, 75, userImage, "#fff", 20);
   // dibujar titulo
   context.save();
-  const title = `${user.name}\nTOP 3\nArtistas`;
-  context.font = `100px ${titleFont}`;
+  const title = `${user.name}\nTOP 3 Artistas`;
+  context.font = `75px ${titleFont}`;
+  context.fillStyle = "#fff";
   context.textBaseline = "middle";
   context.textAlign = "center";
-  fillMultilineText(title, 250, 250, 1, "center", "middle");
+  fillMultilineText(title, 350, 150, 1, "center", "middle");
   context.restore();
   // dibujar artistas
-  let sY = 750;
+  let sY = 600; // Altura de inicio
   context.save();
   context.textBaseline = "middle";
   context.textAlign = "left";
   context.font = `80px ${titleFont}`;
   context.fillStyle = "#000";
+  const textGap = 50; // espaciado entre borde de imagen y texto
+  const size = 400; // tamaño para imagen de artista
   for (let i = 0; i < 3; i++) {
     const artistaData = data[i];
     const impar = (i + 2) % 2 != 0;
@@ -48,16 +52,15 @@
     const image = await loadImage(artistaData.images[0].url);
     const textMeasurament = measureText(artistaData.name);
     if (impar) {
-      context.fillText(artistaData.name, 400, sY, 700);
-      drawImage(50, sY - 150, image, 300, 300);
+      context.fillText(artistaData.name, size + gap + textGap, sY);
+      drawImage(gap, sY - size / 2, image, size, size);
     } else {
       context.fillText(
         artistaData.name,
-        canvas.width - 400 - textMeasurament.width,
-        sY,
-        700
+        canvas.width - size - textMeasurament.width - gap - textGap,
+        sY
       );
-      drawImage(canvas.width - 50 - 300, sY - 150, image, 300, 300);
+      drawImage(canvas.width - gap - size, sY - size / 2, image, size, size);
     }
 
     sY += textMeasurament.height + 300;

@@ -85,15 +85,20 @@ export function bindDrawRoundedImage(canvas: Canvas) {
     image: Image,
     x: number,
     y: number,
-    size: number
+    size: number,
+    strokeStyle: string = "",
+    lineWidth: number = 0
   ) {
     context.save();
     // create clipping region which will display portion of image
     // The image will only be visible inside the circular clipping path
+    if (strokeStyle) {
+      context.strokeStyle = strokeStyle;
+    }
     context.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
     context.beginPath();
     context.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
-    context.lineWidth = 5;
+    context.lineWidth = lineWidth;
     context.stroke();
     context.closePath();
     context.clip();
