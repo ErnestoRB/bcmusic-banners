@@ -5,7 +5,9 @@
   "name": "Top 3",
   "fonts": [
     { "src": "BebasNeue.ttf", "family": "Bebas" },
-    { "src": "NotoSans.ttf", "family": "Noto" }
+    { "src": "NotoSans.ttf", "family": "Noto" },
+    { "src": "Bungee-Regular.ttf", "family": "Bungee" },
+    { "src": "BungeeShade-Regular.ttf", "family": "BungeeShade" }
   ],
   "time_range": "long_term",
   "images": ["top3.png"]

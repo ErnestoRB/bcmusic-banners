@@ -1,4 +1,9 @@
-import { Canvas, Image } from "canvas";
+import {
+  Canvas,
+  CanvasRenderingContext2D,
+  Image,
+  NodeCanvasRenderingContext2DSettings,
+} from "canvas";
 import { readFileSync } from "fs";
 import path from "path";
 
@@ -68,9 +73,22 @@ export function bindDrawImage(canvas: Canvas) {
     y: number,
     image: Image,
     width: number,
-    height: number
+    height: number,
+    shadow?: {
+      shadowColor: CanvasRenderingContext2D["shadowColor"];
+      shadowBlur: CanvasRenderingContext2D["shadowBlur"];
+      shadowOffsetX: CanvasRenderingContext2D["shadowOffsetX"];
+      shadowOffsetY: CanvasRenderingContext2D["shadowOffsetY"];
+    }
   ) {
     ctx.save();
+    if (shadow) {
+      const { shadowBlur, shadowColor, shadowOffsetX, shadowOffsetY } = shadow;
+      ctx.shadowBlur = shadowBlur;
+      ctx.shadowColor = shadowColor;
+      ctx.shadowOffsetX = shadowOffsetX;
+      ctx.shadowOffsetY = shadowOffsetY;
+    }
     ctx.translate(x, y);
     ctx.scale(width / image.width, height / image.height);
     ctx.drawImage(image, 0, 0);

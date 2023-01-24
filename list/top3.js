@@ -15,34 +15,56 @@
   }
   const gap = 50; // espaciado entre borde de imagen e imagenes de artistas
   const userImage = 150;
-  const titleFont = '"Bebas"';
+  const titleFont = '"BungeeShade"';
+  const bodyFont = '"Bungee"';
   // dibujar fondo
   context.drawImage(images[0], 0, 0);
   // dibujar rectangulo
   context.save();
-  context.fillStyle = "#000";
-  context.fillRect(0, 0, width, 300);
+  context.fillStyle = "white";
+  context.globalAlpha = 0.65;
+  context.roundRect(gap, gap, width - gap * 2, 300, 10);
+  context.fill();
+  context.lineWidth = 1;
+  context.shadowBlur = 8;
+  context.shadowColor = "black";
+  context.shadowOffsetX = 1;
+  context.shadowOffsetY = 1;
+  context.stroke();
   context.restore();
   // dibujar imagen de usuario
-  drawRoundedImage(user.image, gap, 75, userImage, "#fff", 20);
+  drawRoundedImage(user.image, gap * 2, 75 + gap, userImage, "#000", 10);
   // dibujar titulo
   context.save();
-  const title = `${user.name}\nTOP 3 Artistas`;
-  context.font = `75px ${titleFont}`;
-  context.fillStyle = "#fff";
+  const title = `${user.name.split(" ")[0]}\nTOP 3 Artistas`;
+  context.font = `70px ${titleFont}`;
+  context.fillStyle = "black";
   context.textBaseline = "middle";
   context.textAlign = "center";
-  fillMultilineText(title, 350, 150, 1, "center", "middle");
+  fillMultilineText(title, 300, 150 + gap, 1, "center", "middle");
   context.restore();
   // dibujar artistas
-  let sY = 600; // Altura de inicio
+  let sY = 650; // Altura de inicio
   context.save();
   context.textBaseline = "middle";
   context.textAlign = "left";
-  context.font = `80px ${titleFont}`;
   context.fillStyle = "#000";
   const textGap = 50; // espaciado entre borde de imagen y texto
   const size = 400; // tamaño para imagen de artista
+  const shadowSettings = {
+    shadowBlur: 25,
+    shadowColor: "black",
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+  };
+  context.font = `45px ${bodyFont}`;
+  context.fillStyle = "white";
+  context.strokeStyle = "black";
+  context.lineWidth = 3;
+  context.shadowBlur = 8;
+  context.shadowColor = "black";
+  context.shadowOffsetX = 1;
+  context.shadowOffsetY = 1;
   for (let i = 0; i < 3; i++) {
     const artistaData = data[i];
     const impar = (i + 2) % 2 != 0;
@@ -51,21 +73,27 @@
     }
     const image = await loadImage(artistaData.images[0].url);
     const textMeasurament = measureText(artistaData.name);
+
     if (impar) {
       context.fillText(artistaData.name, size + gap + textGap, sY);
-      drawImage(gap, sY - size / 2, image, size, size);
+      drawImage(gap, sY - size / 2, image, size, size, shadowSettings);
     } else {
       context.fillText(
         artistaData.name,
         canvas.width - size - textMeasurament.width - gap - textGap,
         sY
       );
-      drawImage(canvas.width - gap - size, sY - size / 2, image, size, size);
+      drawImage(
+        canvas.width - gap - size,
+        sY - size / 2,
+        image,
+        size,
+        size,
+        shadowSettings
+      );
     }
-
-    sY += textMeasurament.height + 300;
+    sY += -textMeasurament.height + size;
   }
   context.restore();
-
   return canvas.toBuffer("image/png");
 })();
