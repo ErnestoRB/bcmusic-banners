@@ -1,4 +1,37 @@
-(async function () {
+import { BannerProps } from "./typings";
+
+export const Config: BannerConfig = {
+  width: 1080,
+  height: 1920,
+  author: "Ernesto Ramírez",
+  name: "Top 3",
+  fonts: [
+    { src: "BebasNeue.ttf", family: "Bebas" },
+    { src: "NotoSans.ttf", family: "Noto" },
+    { src: "Bungee-Regular.ttf", family: "Bungee" },
+    { src: "BungeeShade-Regular.ttf", family: "BungeeShade" },
+  ],
+  min_items: 1,
+  time_range: "long_term",
+  images: ["top3.png"],
+};
+
+export default async function Top3({
+  canvas,
+  data,
+  user,
+  images,
+  author,
+  drawRoundedImage,
+  fillMultilineText,
+  description,
+  drawImage,
+  height,
+  loadImage,
+  measureText,
+  registerFont,
+  width,
+}: BannerProps) {
   const context = canvas.getContext("2d");
   if (data.length < 3) {
     throw new BannerError(
@@ -96,4 +129,4 @@
   }
   context.restore();
   return canvas.toBuffer("image/png");
-})();
+}

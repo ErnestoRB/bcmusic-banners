@@ -1,11 +1,4 @@
-import {
-  Canvas,
-  CanvasRenderingContext2D,
-  Image,
-  NodeCanvasRenderingContext2DSettings,
-} from "canvas";
-import { readFileSync } from "fs";
-import path from "path";
+import { Canvas, CanvasRenderingContext2D, Image } from "canvas";
 
 export function bindMultilineSupport(canvas: Canvas) {
   const ctx = canvas.getContext("2d");
@@ -125,16 +118,4 @@ export function bindDrawRoundedImage(canvas: Canvas) {
     // restore the context to its unaltered state
     context.restore();
   };
-}
-
-export function loadArtistSample(name: string) {
-  return JSON.parse(
-    readFileSync(path.join("samples", "artist", name + ".json"), "utf-8")
-  );
-}
-
-export function loadUserSample(name: string) {
-  return JSON.parse(
-    readFileSync(path.join("samples", "user", name + ".json"), "utf-8")
-  );
 }

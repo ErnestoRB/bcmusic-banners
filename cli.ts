@@ -1,17 +1,7 @@
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import path from "path";
 import { exit } from "process";
 import { executeBanner } from "./engine";
-import { loadArtistSample, loadUserSample } from "./utils";
-
-export interface SpotifyArtist {
-  name: string;
-
-  images: {
-    url: string;
-    height: number;
-    width: number;
-  }[];
-}
 
 if (process.argv.length < 5) {
   console.log("Uso: npm start -- <nombre_banner> <data_sample> <user_sample>");
@@ -32,5 +22,19 @@ executeBanner(name, loadUserSample(userSample), loadArtistSample(artistSample))
     console.log(`Banner guardado en ${path}`);
   })
   .catch((err) => {
+    console.log(err);
+
     console.error(`Ha ocurrido un error: ${err}`);
   });
+
+function loadArtistSample(name: string) {
+  return JSON.parse(
+    readFileSync(path.join("samples", "artist", name + ".json"), "utf-8")
+  );
+}
+
+function loadUserSample(name: string) {
+  return JSON.parse(
+    readFileSync(path.join("samples", "user", name + ".json"), "utf-8")
+  );
+}

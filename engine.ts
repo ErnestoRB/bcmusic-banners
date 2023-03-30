@@ -1,6 +1,5 @@
 import { createCanvas, loadImage, registerFont } from "canvas";
 import vm from "vm";
-import { readFileSync } from "fs";
 import path from "path";
 import {
   bindDrawImage,
@@ -9,7 +8,7 @@ import {
   bindMultilineSupport,
 } from "./utils";
 import { isPromise } from "util/types";
-import { SpotifyArtist } from ".";
+import { SpotifyArtist } from "./src/list/typings";
 
 class BannerError extends Error {
   isBanner = true;
@@ -20,10 +19,11 @@ export async function executeBanner(
   userData: any,
   artistData: SpotifyArtist[]
 ) {
-  const configFile = readFileSync(path.join("list", name + ".json"), "utf8");
-  const json = JSON.parse(configFile);
-  const { width, height, author, description, images, fonts } = json;
-  const script = readFileSync(path.join("list", name + ".js"), "utf8");
+  const bannerModule = await import(`./src/list/${name}.ts`);
+  const bannerFunc = bannerModule.default;
+  const config: BannerConfig = bannerModule.Config;
+
+  const { width, height, author, description, images, fonts } = config;
   fonts.forEach(({ src, family }) => {
     registerFont(path.join(process.cwd(), "fonts", src), { family });
   });
@@ -38,23 +38,27 @@ export async function executeBanner(
   const imagesArray = await Promise.all(promises);
   const canvas = createCanvas(width, height);
   const context: any = {
-    width,
-    height,
-    author,
-    description,
-    canvas,
-    loadImage,
-    registerFont,
+    props: {
+      width,
+      height,
+      author,
+      description,
+      canvas,
+      loadImage,
+      registerFont,
+      measureText: bindMeasureText(canvas),
+      fillMultilineText: bindMultilineSupport(canvas),
+      drawImage: bindDrawImage(canvas),
+      drawRoundedImage: bindDrawRoundedImage(canvas),
+      images: imagesArray,
+      user: userData,
+      data: artistData,
+    },
+    bannerFunc,
+
     BannerError,
-    measureText: bindMeasureText(canvas),
-    fillMultilineText: bindMultilineSupport(canvas),
-    drawImage: bindDrawImage(canvas),
-    drawRoundedImage: bindDrawRoundedImage(canvas),
-    images: imagesArray,
-    user: userData,
-    data: artistData,
   };
-  const promise = vm.runInNewContext(script, context);
+  const promise = vm.runInNewContext(`bannerFunc(props)`, context);
   if (!promise || !isPromise(promise)) return undefined;
   const buffer = await promise;
 

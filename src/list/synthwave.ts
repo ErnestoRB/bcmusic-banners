@@ -1,4 +1,19 @@
-(async function () {
+export const Config: BannerConfig = {
+  width: 1296,
+  height: 1920,
+  author: "Iker Jiménez",
+  name: "Synthwave",
+  time_range: "long_term",
+  min_items: 1,
+  example: "https://i.imgur.com/aD4WkXl.png",
+  fonts: [
+    { src: "SF Movie Poster.ttf", family: "SF Movie Poster" },
+    { src: "BLADRMF.ttf", family: "Blade Runner Movie Font" },
+  ],
+  images: ["background_text.jpg", "background.jpg"],
+};
+
+export default async function Synthwave() {
   const context = canvas.getContext("2d");
   if (data.length < 1) {
     throw new BannerError(
@@ -58,4 +73,4 @@
     y += line.textHeight + 10;
   }
   return canvas.toBuffer("image/png");
-})();
+}

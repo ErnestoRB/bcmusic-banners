@@ -1,17 +1,13 @@
 {
-  "ts-node": {
-    "files": true
-  },
   "compilerOptions": {
-    "checkJs": true,
-    "typeRoots": ["banner.d.ts"],
+    "typeRoots": ["../banner.d.ts"],
     "types": ["node"],
     "module": "NodeNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "outDir": "dist",
+    "outDir": "../dist",
     "target": "Es2017",
     "resolveJsonModule": true
   },
-  "exclude": ["src"]
+  "include": [".", "../banner.d.ts"]
 }
