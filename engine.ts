@@ -8,7 +8,7 @@ import {
   bindMultilineSupport,
 } from "./utils";
 import { isPromise } from "util/types";
-import { SpotifyArtist } from "./src/list/typings";
+import { BannerConfig, SpotifyArtist } from "./src/types";
 
 class BannerError extends Error {
   isBanner = true;

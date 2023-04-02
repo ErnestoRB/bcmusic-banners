@@ -1,3 +1,5 @@
+import { BannerConfig, BannerProps } from "../types";
+
 export const Config: BannerConfig = {
   width: 1296,
   height: 1920,
@@ -13,7 +15,22 @@ export const Config: BannerConfig = {
   images: ["background_text.jpg", "background.jpg"],
 };
 
-export default async function Synthwave() {
+export default async function Synthwave({
+  canvas,
+  data,
+  user,
+  images,
+  author,
+  drawRoundedImage,
+  fillMultilineText,
+  description,
+  drawImage,
+  height,
+  loadImage,
+  measureText,
+  registerFont,
+  width,
+}: BannerProps) {
   const context = canvas.getContext("2d");
   if (data.length < 1) {
     throw new BannerError(

@@ -1,4 +1,4 @@
-import { BannerProps } from "./typings";
+import { BannerConfig, BannerProps } from "../types";
 
 export const Config: BannerConfig = {
   width: 1080,

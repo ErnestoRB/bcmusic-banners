@@ -4,7 +4,7 @@
   },
   "compilerOptions": {
     "checkJs": true,
-    "typeRoots": ["banner.d.ts"],
+    "typeRoots": ["src/globals.d.ts"],
     "types": ["node"],
     "module": "NodeNext",
     "moduleResolution": "node",
@@ -13,5 +13,5 @@
     "target": "Es2017",
     "resolveJsonModule": true
   },
-  "exclude": ["src"]
+  "include": ["src/globals.d.ts"]
 }
